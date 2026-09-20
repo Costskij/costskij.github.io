@@ -51,7 +51,7 @@
       margin: 0 auto;
     }
 
-    /* HEADER & NAV */
+    /* HEADER & NAV BANNER */
     header {
       padding: 30px 0;
       text-align: center;
@@ -73,15 +73,27 @@
       letter-spacing: 2px;
       text-transform: uppercase;
       transition: color 0.3s ease;
+      cursor: pointer;
     }
 
-    nav a:hover {
+    nav a:hover, nav a.active {
       color: #ffffff;
     }
 
     /* SECTIONS COMMON */
-    section {
+    .tab-section {
+      display: none;
       margin-bottom: 80px;
+      animation: fadeIn 0.4s ease-in-out;
+    }
+
+    .tab-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     h2 {
@@ -256,9 +268,9 @@
   <header>
     <nav>
       <ul>
-        <li><a href="#about">ABOUT ME</a></li>
-        <li><a href="#portfolio">PORTFOLIO</a></li>
-        <li><a href="#contact">LET'S TALK</a></li>
+        <li><a onclick="showTab('about')" id="nav-about">ABOUT ME</a></li>
+        <li><a onclick="showTab('portfolio')" id="nav-portfolio" class="active">PORTFOLIO</a></li>
+        <li><a onclick="showTab('contact')" id="nav-contact">LET'S TALK</a></li>
       </ul>
     </nav>
   </header>
@@ -266,7 +278,7 @@
   <main>
 
     <!-- SECTION 1: ABOUT ME -->
-    <section id="about">
+    <section id="about" class="tab-section">
       <h2>About Me</h2>
       <div class="about-container">
         <div class="about-portrait">
@@ -286,8 +298,8 @@
       </div>
     </section>
 
-    <!-- SECTION 2: PORTFOLIO -->
-    <section id="portfolio">
+    <!-- SECTION 2: PORTFOLIO (ATTIVA DI DEFAULT) -->
+    <section id="portfolio" class="tab-section active">
       <h2>Portfolio</h2>
 
       <!-- Immagine Hero -->
@@ -332,7 +344,7 @@
     </section>
 
     <!-- SECTION 3: LET'S TALK -->
-    <section id="contact">
+    <section id="contact" class="tab-section">
       <h2>Let's Talk</h2>
       <div class="contact-container">
         <p>Available for editorial assignments, commercial projects, and creative collaborations worldwide.</p>
@@ -349,6 +361,19 @@
   <footer>
     <p>&copy; 2026 Costskij Photography. All rights reserved.</p>
   </footer>
+
+  <script>
+    function showTab(tabId) {
+      const sections = document.querySelectorAll('.tab-section');
+      sections.forEach(section => section.classList.remove('active'));
+
+      const navLinks = document.querySelectorAll('nav a');
+      navLinks.forEach(link => link.classList.remove('active'));
+
+      document.getElementById(tabId).classList.add('active');
+      document.getElementById('nav-' + tabId).classList.add('active');
+    }
+  </script>
 
 </body>
 </html>
